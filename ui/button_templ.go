@@ -259,32 +259,8 @@ func buttonVariant(data models.Button) templ.Component {
 	})
 }
 
-func getTextColor(data models.Button) string {
-	textColors := map[string]string{
-		"yellow": "text-[#FFD700]",
-		"orange": "text-[#FF6F00]",
-		"red":    "text-[#B90E0A]",
-		"purple": "text-[#7338A0]",
-		"blue":   "text-[#2A6199]",
-		"green":  "text-[#028A0F]",
-	}
-
-	if data.Variant == "solid" {
-		return "text-white"
-	}
-
-	return textColors[data.Color]
-}
-
 func getButtonClasses(data models.Button) string {
 	baseClass := "flex items-center justify-center gap-2 w-fit"
-
-	variantClasses := map[string]string{
-		"plain":    "bg-opacity-0 hover:font-bold",
-		"outlined": "bg-opacity-0 border hover:bg-opacity-5",
-		"soft":     "bg-opacity-5 hover:bg-opacity-10",
-		"solid":    "bg-opacity-100 text-white hover:bg-opacity-90",
-	}
 
 	sizeClasses := map[string]string{
 		"sm": "px-3 py-1 text-sm rounded-lg",
@@ -292,16 +268,11 @@ func getButtonClasses(data models.Button) string {
 		"lg": "px-10 py-[10px] text-lg rounded-xl",
 	}
 
-	colorClasses := map[string]string{
-		"yellow": "bg-[#FFD700] border-[#FFD700]",
-		"orange": "bg-[#FF6F00] border-[#FF6F00]",
-		"red":    "bg-[#B90E0A] border-[#B90E0A]",
-		"purple": "bg-[#7338A0] border-[#7338A0]",
-		"blue":   "bg-[#2A6199] border-[#2A6199]",
-		"green":  "bg-[#028A0F] border-[#028A0F]",
-	}
-
-	return baseClass + " " + variantClasses[data.Variant] + " " + sizeClasses[data.Size] + " " + colorClasses[data.Color] + " " + getTextColor(data)
+	return baseClass + " " +
+		getVariantClasses(data.Variant, true) + " " +
+		sizeClasses[data.Size] + " " +
+		getColorClasses(data.Color) + " " +
+		getTextColor(data.Color, data.Variant)
 }
 
 func addAttributes(attrs models.Attributes) templ.Attributes {

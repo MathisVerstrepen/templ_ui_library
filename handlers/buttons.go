@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -12,7 +11,7 @@ import (
 )
 
 func Buttons(c echo.Context) error {
-	return Render(c, http.StatusOK, comp.Root(comp.Buttons(), "Home"))
+	return Render(c, http.StatusOK, comp.Root(comp.Buttons(), "Buttons"))
 }
 
 func ButtonsChange(c echo.Context) error {
@@ -26,9 +25,8 @@ func ButtonsChange(c echo.Context) error {
 		Decorator:         exampleDecorator,
 		DecoratorPosition: c.FormValue("decorator"),
 	}
-	fmt.Printf("Button Data: %+v\n", buttonData)
 
-	Render(c, http.StatusOK, comp.CodeBlockWithCopy("templ", comp.GetCode(buttonData)))
+	Render(c, http.StatusOK, comp.CodeBlockWithCopy("templ", comp.ButtonGetCode(buttonData)))
 
 	return Render(c, http.StatusOK, ui.Button(buttonData))
 }

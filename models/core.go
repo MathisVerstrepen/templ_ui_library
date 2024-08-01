@@ -21,3 +21,12 @@ type Button struct {
 	HTMX              Attributes
 	HTML              Attributes
 }
+
+type Chip struct {
+	Text    string
+	Variant string
+	Color   string
+	Size    string
+	HTMX    Attributes
+	HTML    Attributes
+}

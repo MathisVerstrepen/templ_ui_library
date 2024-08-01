@@ -6,7 +6,7 @@ import (
     "github.com/MathisVerstrepen/templ_ui_library/models"
 )
 
-var BaseModel = models.Button{
+var ButtonBaseModel = models.Button{
     Text: "Button",
     Variant: "soft",
     Color: "blue",
@@ -20,10 +20,25 @@ var BaseModel = models.Button{
     },
 }
 
+func ButtonGetCode(data models.Button) string {
+	return fmt.Sprintf(`
+@ui.Button(models.Button{
+    Text: "%s",
+    Variant: "%s",
+    Color: "%s",
+    Size: "%s",
+    Decorator: nil,
+    DecoratorPosition: "%s",
+    HTMX: models.Attributes{},
+    HTML: models.Attributes{},
+})
+	`, data.Text, data.Variant, data.Color, data.Size, data.DecoratorPosition)
+}
+
 templ Buttons() {
     <div class="flex items-center justify-center gap-4">
         <div class="px-8 py-20 border rounded-xl h-[30rem] w-60 flex items-center justify-center" id="button-primary">
-            @ui.Button(BaseModel)
+            @ui.Button(ButtonBaseModel)
         </div>
         <form class="px-8 py-20 border rounded-xl h-[30rem] flex flex-col items-start gap-4"
             autocomplete="off"
@@ -131,64 +146,7 @@ templ Buttons() {
         </form>
     </div>
     <div id="code-block">
-        @CodeBlockWithCopy("html", GetCode(BaseModel))
+        @CodeBlockWithCopy("html", ButtonGetCode(ButtonBaseModel))
     </div>
 }
 
-func GetCode(data models.Button) string {
-	return fmt.Sprintf(`
-@ui.Button(models.Button{
-    Text: "%s",
-    Variant: "%s",
-    Color: "%s",
-    Size: "%s",
-    Decorator: nil,
-    DecoratorPosition: "%s",
-    HTMX: models.Attributes{},
-    HTML: models.Attributes{},
-})
-	`, data.Text, data.Variant, data.Color, data.Size, data.DecoratorPosition)
-}
-
-
-templ CodeBlockWithCopy(language string, code string) {
-    <div class="relative mt-4 w-96"
-        hx-swap-oob="true"
-        id="code-block"
-    >
-        <div class="code bg-zinc-100 p-4 rounded-lg">
-            <span class="lang text-sm text-zinc-500">{ language }</span>
-            <pre class="mt-2 text-sm">{ code }</pre>
-        </div>
-        <button
-            class="absolute text-sm top-2 right-2 bg-zinc-500 text-white px-2 py-1 rounded hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-            onclick="copyCode(this)"
-        >
-            Copy
-        </button>
-    </div>
-
-    <script>
-        function copyCode(button) {
-            const pre = button.parentElement.querySelector('pre');
-            const code = pre.textContent;
-
-            navigator.clipboard.writeText(code).then(() => {
-                const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                button.classList.remove('bg-zinc-500', 'hover:bg-zinc-600');
-                button.classList.add('bg-green-500', 'hover:bg-green-600');
-
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.classList.remove('bg-green-500', 'hover:bg-green-600');
-                    button.classList.add('bg-zinc-500', 'hover:bg-zinc-600');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                button.textContent = 'Failed to copy';
-                button.classList.add('bg-red-500', 'hover:bg-red-600');
-            });
-        }
-    </script>
-}

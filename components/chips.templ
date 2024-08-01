@@ -1,0 +1,89 @@
+package components
+
+import (
+    "fmt"
+    "github.com/MathisVerstrepen/templ_ui_library/ui"
+	"github.com/MathisVerstrepen/templ_ui_library/models"
+)
+
+var ChipBaseModel = models.Chip{
+    Text: "Chip",
+    Variant: "soft",
+    Color: "blue",
+    Size: "md",
+}
+
+func ChipGetCode(data models.Chip) string {
+	return fmt.Sprintf(`
+@ui.Chip(models.Chip{
+    Text: "%s",
+    Variant: "%s",
+    Color: "%s",
+    Size: "%s",
+    HTMX: models.Attributes{},
+    HTML: models.Attributes{},
+})
+	`, data.Text, data.Variant, data.Color, data.Size)
+}
+
+templ Chips() {
+    <div class="flex items-center justify-center gap-4">
+        <div class="px-8 py-20 border rounded-xl h-[30rem] w-60 flex items-center justify-center" id="button-primary">
+            @ui.Chip(ChipBaseModel)
+        </div>
+        <form class="px-8 py-20 border rounded-xl h-[30rem] flex flex-col items-start gap-4"
+            autocomplete="off"
+            hx-post="/chips"
+            hx-trigger="change"
+            hx-target="#button-primary"
+            hx-swap="innerHTML"
+        >
+            <p>Variant</p>
+            <div class="flex gap-4">
+                <div>
+                    <input type="radio" id="button-plain" name="variant" value="plain"/>
+                    <label for="button-plain">plain</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-outlined" name="variant" value="outlined" />
+                    <label for="button-outlined">outlined</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-soft" name="variant" value="soft" checked />
+                    <label for="button-soft">soft</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-solid" name="variant" value="solid" />
+                    <label for="button-solid">solid</label>
+                </div>
+            </div>
+
+            <p>Color</p>
+            @ColorSelector()
+
+            <p>Size</p>
+            <div class="flex gap-4">
+                <div>
+                    <input type="radio" id="button-small" name="size" value="sm" />
+                    <label for="button-small">sm</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-medium" name="size" value="md" checked />
+                    <label for="button-medium">md</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-large" name="size" value="lg" />
+                    <label for="button-large">lg</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="code-block">
+        @CodeBlockWithCopy("html", ChipGetCode(ChipBaseModel))
+    </div>
+}

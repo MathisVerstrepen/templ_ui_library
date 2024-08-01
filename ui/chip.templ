@@ -1,0 +1,39 @@
+package ui
+
+import (
+    "github.com/MathisVerstrepen/templ_ui_library/models"
+)
+
+templ Chip(data models.Chip) {
+    @chipWrapper(data, chipContent(data))
+}
+
+templ chipContent(data models.Chip) {
+    { data.Text }
+}
+
+templ chipWrapper(data models.Chip, button templ.Component) {
+    <div 
+        class={ getChipClasses(data) }
+        { addAttributes(data.HTML)... }
+        { addAttributes(data.HTMX)... }
+    >
+        @button
+    </div>
+}
+
+func getChipClasses(data models.Chip) string {
+    baseClass := "flex items-center justify-center gap-2 w-fit rounded-full"
+
+    sizeClasses := map[string]string{
+        "sm": "px-3 py-1 text-sm",
+        "md": "px-5 py-[6px]",
+        "lg": "px-10 py-[10px] text-lg",
+    }
+
+    return baseClass + " " + 
+        getVariantClasses(data.Variant, false) + " " + 
+        sizeClasses[data.Size] + " " + 
+        getColorClasses(data.Color) + " " + 
+        getTextColor(data.Color, data.Variant)
+}

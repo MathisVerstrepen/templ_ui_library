@@ -24,6 +24,9 @@ func main() {
 	e.GET("/buttons", handlers.Buttons)
 	e.POST("/buttons", handlers.ButtonsChange)
 
+	e.GET("/chips", handlers.Chips)
+	e.POST("/chips", handlers.ChipsChange)
+
 	// ---- Global Routes ---- //
 	e.GET("/ping", handlers.GlobalPing)
 	if os.Getenv("ENV") != "prod" {
