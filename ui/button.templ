@@ -9,20 +9,21 @@ templ Button(data models.Button) {
 }
 
 templ decoratorWrapper(data models.Button) {
-    switch data.Size {
-    case "sm":
-        <div class="h-4 w-4">
-            @data.Decorator
-        </div>
-    case "md":
-        <div class="h-5 w-5">
-            @data.Decorator
-        </div>
-    case "lg":
-        <div class="h-6 w-6">
-            @data.Decorator
-        </div>
-    }
+    // switch data.Size {
+    // case "sm":
+    //     <div class="h-4 w-4">
+    //         @data.Decorator
+    //     </div>
+    // case "md":
+    //     <div class="h-5 w-5">
+    //         @data.Decorator
+    //     </div>
+    // case "lg":
+    //     <div class="h-6 w-6">
+    //         @data.Decorator
+    //     </div>
+    // }
+    @data.Decorator
 }
 
 templ buttonWrapper(data models.Button, button templ.Component) {
@@ -75,7 +76,7 @@ func getTextColor(data models.Button) string {
 }
 
 func getButtonClasses(data models.Button) string {
-    baseClass := "flex items-center justify-center gap-2"
+    baseClass := "flex items-center justify-center gap-2 w-fit"
 
     variantClasses := map[string]string{
         "plain":    "bg-opacity-0 hover:font-bold",
