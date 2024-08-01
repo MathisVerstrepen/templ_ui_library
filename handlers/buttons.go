@@ -6,9 +6,9 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	comp "diikstra.fr/template/components"
-	"diikstra.fr/template/models"
-	"diikstra.fr/template/ui"
+	comp "github.com/MathisVerstrepen/templ_ui_library/components"
+	"github.com/MathisVerstrepen/templ_ui_library/models"
+	"github.com/MathisVerstrepen/templ_ui_library/ui"
 )
 
 func Buttons(c echo.Context) error {

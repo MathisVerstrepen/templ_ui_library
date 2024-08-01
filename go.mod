@@ -1,4 +1,4 @@
-module diikstra.fr/template
+module github.com/MathisVerstrepen/templ_ui_library
 
 go 1.22.1
 

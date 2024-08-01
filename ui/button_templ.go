@@ -9,7 +9,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"diikstra.fr/template/models"
+	"github.com/MathisVerstrepen/templ_ui_library/models"
 )
 
 func Button(data models.Button) templ.Component {

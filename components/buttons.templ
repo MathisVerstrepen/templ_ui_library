@@ -2,8 +2,8 @@ package components
 
 import (
     "fmt"
-    "diikstra.fr/template/ui"
-    "diikstra.fr/template/models"
+    "github.com/MathisVerstrepen/templ_ui_library/ui"
+    "github.com/MathisVerstrepen/templ_ui_library/models"
 )
 
 var BaseModel = models.Button{
@@ -144,6 +144,8 @@ func GetCode(data models.Button) string {
     Size: "%s",
     Decorator: nil,
     DecoratorPosition: "%s",
+    HTMX: models.Attributes{},
+    HTML: models.Attributes{},
 })
 	`, data.Text, data.Variant, data.Color, data.Size, data.DecoratorPosition)
 }

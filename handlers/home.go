@@ -5,7 +5,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	comp "diikstra.fr/template/components"
+	comp "github.com/MathisVerstrepen/templ_ui_library/components"
 )
 
 func HomeHandler(c echo.Context) error {

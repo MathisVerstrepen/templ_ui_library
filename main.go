@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"diikstra.fr/template/handlers"
+	"github.com/MathisVerstrepen/templ_ui_library/handlers"
 )
 
 func main() {
