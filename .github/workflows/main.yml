@@ -1,0 +1,28 @@
+name: Purge jsDelivr cache
+
+on:
+  push:
+    branches:
+      - main  # ou le nom de votre branche principale
+    paths:
+      - 'assets/css/output.css'  # Chemin vers votre fichier CSS
+
+jobs:
+  purge-jsdelivr-cache:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Purge jsDelivr cache
+      uses: gacts/purge-jsdelivr-cache@v1
+      with:
+        url: |
+          https://cdn.jsdelivr.net/gh/MathisVerstrepen/templ_ui_library@main/assets/css/output.css
+
+    - name: Check purge status
+      run: |
+        HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://purge.jsdelivr.net/gh/MathisVerstrepen/templ_ui_library@main/assets/css/output.css)
+        if [ $HTTP_STATUS -eq 200 ]; then
+          echo "Cache purged successfully"
+        else
+          echo "Cache purge failed with status $HTTP_STATUS"
+          exit 1
+        fi
