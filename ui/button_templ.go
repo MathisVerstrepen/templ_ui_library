@@ -287,9 +287,9 @@ func getButtonClasses(data models.Button) string {
 	}
 
 	sizeClasses := map[string]string{
-		"sm": "px-2 py-1 text-sm rounded-lg",
-		"md": "px-4 py-2 rounded-lg",
-		"lg": "px-8 py-3 text-lg rounded-xl",
+		"sm": "px-3 py-1 text-sm rounded-lg",
+		"md": "px-5 py-[6px] rounded-lg",
+		"lg": "px-10 py-[10px] text-lg rounded-xl",
 	}
 
 	colorClasses := map[string]string{
