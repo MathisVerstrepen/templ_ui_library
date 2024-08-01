@@ -1,0 +1,96 @@
+package components
+
+import "os"
+
+func environment() string {
+    return os.Getenv("ENV")
+}
+
+templ layout(contents templ.Component, title string) {
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+        <link rel="manifest" href="assets/favicon/site.webmanifest">
+        <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="/assets/css/output.css"></link>
+        <title>{title}</title>
+
+        <script src="https://unpkg.com/htmx.org@2.0.0/dist/htmx.min.js"></script>
+
+        if (environment() != "prod") {
+            <script>
+                const socket = new WebSocket(`ws://${window.location.hostname}:8080/ws`);
+
+                socket.addEventListener("close", (event) => {
+                    let interval = setInterval(() => {
+                        fetch("/").then((response) => {
+                            if (response.ok) {
+                                console.log("Connection closed, but ping fetched successfully!");
+                                clearInterval(interval);
+                                setTimeout(() => {
+                                    window.location.reload();
+                                    
+                                }, 100);
+                            }
+                        });
+                    }, 200);
+                });
+            </script>
+        }
+
+        <style>
+        :root {
+            --code-bg: #ededed;
+            --code-fg: #000;
+            --code-title-fg: #7b7b7b;
+            --code-lang-fg: #6b6b6b;
+            --code-font: monospace;
+        }
+        .code {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--code-bg);
+            padding: 20px;
+        }
+        .code > * {
+            font-family: var(--code-font);
+        }
+        .code .info {
+            display: flex;
+            justify-content: space-between;
+        }
+        .code .title {
+            color: var(--code-title-fg);
+        }
+        .code .lang {
+            font-size: 12px;
+            color: var(--code-lang-fg);
+            align-self: flex-end;
+        }
+        .code pre {
+            color: var(--code-fg);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        </style>
+    </head>
+
+    <body class="h-screen w-screen flex flex-col items-center justify-center">
+        @contents
+    </body>
+
+    </html>
+}
+
+templ Root(contents templ.Component, title string) {
+    @layout(contents, title)
+}

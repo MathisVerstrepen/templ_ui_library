@@ -1,0 +1,117 @@
+package ui
+
+import (
+    "diikstra.fr/template/models"
+)
+
+templ Button(data models.Button) {
+    @buttonWrapper(data, buttonVariant(data))
+}
+
+templ decoratorWrapper(data models.Button) {
+    switch data.Size {
+    case "sm":
+        <div class="h-4 w-4">
+            @data.Decorator
+        </div>
+    case "md":
+        <div class="h-5 w-5">
+            @data.Decorator
+        </div>
+    case "lg":
+        <div class="h-6 w-6">
+            @data.Decorator
+        </div>
+    }
+}
+
+templ buttonWrapper(data models.Button, button templ.Component) {
+    if data.HTML["href"] != "" {
+        <a
+            class={ getButtonClasses(data) }
+            { addAttributes(data.HTML)... }
+            { addAttributes(data.HTMX)... }
+        >
+            @button
+        </a>
+    } else {
+        <button 
+            class={ getButtonClasses(data) }
+            { addAttributes(data.HTML)... }
+            { addAttributes(data.HTMX)... }
+        >
+            @button
+        </button>
+    }
+}
+
+templ buttonVariant(data models.Button) {
+    if data.Decorator != nil && (data.DecoratorPosition == models.DecoratorPositionBefore || data.DecoratorPosition == models.DecoratorPositionOnly) {
+        @decoratorWrapper(data)
+    }
+    if data.DecoratorPosition != models.DecoratorPositionOnly {
+        { data.Text }
+    }
+    if data.Decorator != nil && data.DecoratorPosition == models.DecoratorPositionAfter {
+        @decoratorWrapper(data)
+    }
+}
+
+func getTextColor(data models.Button) string {
+    textColors := map[string]string{
+        "yellow":   "text-[#FFD700]",
+        "orange": "text-[#FF6F00]",
+        "red":  "text-[#B90E0A]",
+        "purple": "text-[#7338A0]",
+        "blue": "text-[#2A6199]",
+        "green": "text-[#028A0F]",
+    }
+
+    if data.Variant == "solid" {
+        return "text-white"
+    }
+
+    return textColors[data.Color]
+}
+
+func getButtonClasses(data models.Button) string {
+    baseClass := "flex items-center justify-center gap-2"
+
+    variantClasses := map[string]string{
+        "plain":    "bg-opacity-0 hover:font-bold",
+        "outlined": "bg-opacity-0 border hover:bg-opacity-5",
+        "soft":     "bg-opacity-5 hover:bg-opacity-10",
+        "solid":    "bg-opacity-100 text-white hover:bg-opacity-90",
+    }
+
+    sizeClasses := map[string]string{
+        "sm": "px-2 py-1 text-sm rounded-lg",
+        "md": "px-4 py-2 rounded-lg",
+        "lg": "px-8 py-3 text-lg rounded-xl",
+    }
+
+    colorClasses := map[string]string{
+        "yellow":   "bg-[#FFD700] border-[#FFD700]",
+        "orange": "bg-[#FF6F00] border-[#FF6F00]",
+        "red":  "bg-[#B90E0A] border-[#B90E0A]",
+        "purple": "bg-[#7338A0] border-[#7338A0]",
+        "blue": "bg-[#2A6199] border-[#2A6199]",
+        "green": "bg-[#028A0F] border-[#028A0F]",
+    }
+
+    return baseClass + " " + variantClasses[data.Variant] + " " + sizeClasses[data.Size] + " " + colorClasses[data.Color] + " " + getTextColor(data)
+}
+
+func addAttributes(attrs models.Attributes) templ.Attributes {
+    result := templ.Attributes{}
+    for key, value := range attrs {
+        result[key] = value
+    }
+    return result
+}
+
+templ ButtonExampleDecorator() {
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+    </svg>
+}

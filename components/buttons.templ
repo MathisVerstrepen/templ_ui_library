@@ -1,0 +1,192 @@
+package components
+
+import (
+    "fmt"
+    "diikstra.fr/template/ui"
+    "diikstra.fr/template/models"
+)
+
+var BaseModel = models.Button{
+    Text: "Button",
+    Variant: "soft",
+    Color: "blue",
+    Size: "md",
+    Decorator: nil,
+    DecoratorPosition: models.DecoratorPositionNone,
+    HTMX: models.Attributes{
+    },
+    HTML: models.Attributes{
+        "href": "/",
+    },
+}
+
+templ Buttons() {
+    <div class="flex items-center justify-center gap-4">
+        <div class="px-8 py-20 border rounded-xl h-[30rem] w-60 flex items-center justify-center" id="button-primary">
+            @ui.Button(BaseModel)
+        </div>
+        <form class="px-8 py-20 border rounded-xl h-[30rem] flex flex-col items-start gap-4"
+            autocomplete="off"
+            hx-post="/buttons"
+            hx-trigger="change"
+            hx-target="#button-primary"
+            hx-swap="innerHTML"
+        >
+            <p>Variant</p>
+            <div class="flex gap-4">
+                <div>
+                    <input type="radio" id="button-plain" name="variant" value="plain"/>
+                    <label for="button-plain">plain</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-outlined" name="variant" value="outlined" />
+                    <label for="button-outlined">outlined</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-soft" name="variant" value="soft" checked />
+                    <label for="button-soft">soft</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-solid" name="variant" value="solid" />
+                    <label for="button-solid">solid</label>
+                </div>
+            </div>
+
+            <p>Color</p>
+            <div class="flex gap-4">
+                <div>
+                    <input type="radio" id="button-yellow" name="color" value="yellow" />
+                    <label for="button-yellow">yellow</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-orange" name="color" value="orange" />
+                    <label for="button-orange">orange</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-red" name="color" value="red" />
+                    <label for="button-red">red</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-purple" name="color" value="purple" />
+                    <label for="button-purple">purple</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-blue" name="color" value="blue" checked />
+                    <label for="button-blue">blue</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-green" name="color" value="green" />
+                    <label for="button-green">green</label>
+                </div>
+            </div>
+
+            <p>Size</p>
+            <div class="flex gap-4">
+                <div>
+                    <input type="radio" id="button-small" name="size" value="sm" />
+                    <label for="button-small">sm</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-medium" name="size" value="md" checked />
+                    <label for="button-medium">md</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-large" name="size" value="lg" />
+                    <label for="button-large">lg</label>
+                </div>
+            </div>
+
+            <p>Decorator</p>
+            <div class="flex gap-4">
+                <div>
+                    <input type="radio" id="button-decorator-none" name="decorator" value="none" checked />
+                    <label for="button-decorator-none">none</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-decorator-before" name="decorator" value="before" />
+                    <label for="button-decorator-before">before</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-decorator-after" name="decorator" value="after" />
+                    <label for="button-decorator-after">after</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="button-decorator-only" name="decorator" value="only" />
+                    <label for="button-decorator-only">only</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="code-block">
+        @CodeBlockWithCopy("html", GetCode(BaseModel))
+    </div>
+}
+
+func GetCode(data models.Button) string {
+	return fmt.Sprintf(`
+@ui.Button(models.Button{
+    Text: "%s",
+    Variant: "%s",
+    Color: "%s",
+    Size: "%s",
+    Decorator: nil,
+    DecoratorPosition: "%s",
+})
+	`, data.Text, data.Variant, data.Color, data.Size, data.DecoratorPosition)
+}
+
+
+templ CodeBlockWithCopy(language string, code string) {
+    <div class="relative mt-4 w-96"
+        hx-swap-oob="true"
+        id="code-block"
+    >
+        <div class="code bg-zinc-100 p-4 rounded-lg">
+            <span class="lang text-sm text-zinc-500">{ language }</span>
+            <pre class="mt-2 text-sm">{ code }</pre>
+        </div>
+        <button
+            class="absolute text-sm top-2 right-2 bg-zinc-500 text-white px-2 py-1 rounded hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+            onclick="copyCode(this)"
+        >
+            Copy
+        </button>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const pre = button.parentElement.querySelector('pre');
+            const code = pre.textContent;
+
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.remove('bg-zinc-500', 'hover:bg-zinc-600');
+                button.classList.add('bg-green-500', 'hover:bg-green-600');
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('bg-green-500', 'hover:bg-green-600');
+                    button.classList.add('bg-zinc-500', 'hover:bg-zinc-600');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                button.textContent = 'Failed to copy';
+                button.classList.add('bg-red-500', 'hover:bg-red-600');
+            });
+        }
+    </script>
+}
