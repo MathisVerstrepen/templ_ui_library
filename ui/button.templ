@@ -9,21 +9,20 @@ templ Button(data models.Button) {
 }
 
 templ decoratorWrapper(data models.Button) {
-    // switch data.Size {
-    // case "sm":
-    //     <div class="h-4 w-4">
-    //         @data.Decorator
-    //     </div>
-    // case "md":
-    //     <div class="h-5 w-5">
-    //         @data.Decorator
-    //     </div>
-    // case "lg":
-    //     <div class="h-6 w-6">
-    //         @data.Decorator
-    //     </div>
-    // }
-    @data.Decorator
+    switch data.Size {
+    case "sm":
+        <div class="h-4 w-4">
+            @data.Decorator
+        </div>
+    case "md":
+        <div class="h-5 w-5">
+            @data.Decorator
+        </div>
+    case "lg":
+        <div class="h-6 w-6">
+            @data.Decorator
+        </div>
+    }
 }
 
 templ buttonWrapper(data models.Button, button templ.Component) {
