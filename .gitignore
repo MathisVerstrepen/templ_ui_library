@@ -25,8 +25,5 @@ package-lock.json
 # Env
 .env
 
-# Tailwind
-output.css
-
 # Other
 .directory
