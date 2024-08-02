@@ -141,10 +141,14 @@ func getChipClasses(data models.Chip) string {
 		"md": "px-5 py-[6px] text-sm",
 		"lg": "px-8 py-[8px]",
 	}
+	size := data.Size
+	if size == "" {
+		size = "md"
+	}
 
 	return baseClass + " " +
 		getVariantClasses(data.Variant, false) + " " +
-		sizeClasses[data.Size] + " " +
+		sizeClasses[size] + " " +
 		getColorClasses(data.Color) + " " +
 		getTextColor(data.Color, data.Variant) + " " +
 		getOpacityClasses(data.Variant, data.Opacity)

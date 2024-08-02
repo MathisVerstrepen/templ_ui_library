@@ -9,6 +9,10 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 func getTextColor(color string, variant string) string {
+	if color == "" {
+		return "grey"
+	}
+
 	textColors := map[string]string{
 		"yellow": "text-[#FFD700]",
 		"orange": "text-[#FF6F00]",
@@ -27,6 +31,10 @@ func getTextColor(color string, variant string) string {
 }
 
 func getVariantClasses(variant string, hover bool) string {
+	if variant == "" {
+		variant = "soft"
+	}
+
 	variantClasses := map[string]string{
 		"plain":    "bg-opacity-0",
 		"outlined": "bg-opacity-0 border",
@@ -46,6 +54,10 @@ func getVariantClasses(variant string, hover bool) string {
 }
 
 func getColorClasses(color string) string {
+	if color == "" {
+		color = "grey"
+	}
+
 	colorClasses := map[string]string{
 		"yellow": "bg-[#FFD700] border-[#FFD700]",
 		"orange": "bg-[#FF6F00] border-[#FF6F00]",

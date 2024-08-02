@@ -267,10 +267,14 @@ func getButtonClasses(data models.Button) string {
 		"md": "px-5 py-[6px] rounded-lg",
 		"lg": "px-10 py-[10px] text-lg rounded-xl",
 	}
+	size := data.Size
+	if size == "" {
+		size = "md"
+	}
 
 	return baseClass + " " +
 		getVariantClasses(data.Variant, true) + " " +
-		sizeClasses[data.Size] + " " +
+		sizeClasses[size] + " " +
 		getColorClasses(data.Color) + " " +
 		getTextColor(data.Color, data.Variant) + " " +
 		getOpacityClasses(data.Variant, data.Opacity)
