@@ -8,6 +8,7 @@ func getTextColor(color string, variant string) string {
         "purple": "text-[#7338A0]",
         "blue": "text-[#2A6199]",
         "green": "text-[#028A0F]",
+        "grey": "text-[#333333]",
     }
 
     if variant == "solid" {
@@ -44,6 +45,7 @@ func getColorClasses(color string) string {
         "purple": "bg-[#7338A0] border-[#7338A0]",
         "blue": "bg-[#2A6199] border-[#2A6199]",
         "green": "bg-[#028A0F] border-[#028A0F]",
+        "grey": "bg-[#333333] border-[#333333]",
     }
 
     return colorClasses[color]
