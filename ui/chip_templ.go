@@ -134,7 +134,7 @@ func chipWrapper(data models.Chip, button templ.Component) templ.Component {
 }
 
 func getChipClasses(data models.Chip) string {
-	baseClass := "flex items-center justify-center gap-2 w-fit rounded-full"
+	baseClass := "flex items-center justify-center gap-2 w-fit rounded-full font-bold"
 
 	sizeClasses := map[string]string{
 		"sm": "px-3 py-1 text-sm",
@@ -146,5 +146,6 @@ func getChipClasses(data models.Chip) string {
 		getVariantClasses(data.Variant, false) + " " +
 		sizeClasses[data.Size] + " " +
 		getColorClasses(data.Color) + " " +
-		getTextColor(data.Color, data.Variant)
+		getTextColor(data.Color, data.Variant) + " " +
+		getOpacityClasses(data.Variant, data.Opacity)
 }

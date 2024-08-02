@@ -16,6 +16,7 @@ type Button struct {
 	Variant           string
 	Color             string
 	Size              string
+	Opacity           string
 	Decorator         templ.Component
 	DecoratorPosition string
 	HTMX              Attributes
@@ -27,6 +28,7 @@ type Chip struct {
 	Variant string
 	Color   string
 	Size    string
+	Opacity string
 	HTMX    Attributes
 	HTML    Attributes
 }

@@ -70,7 +70,8 @@ func getButtonClasses(data models.Button) string {
         getVariantClasses(data.Variant, true) + " " + 
         sizeClasses[data.Size] + " " + 
         getColorClasses(data.Color) + " " + 
-        getTextColor(data.Color, data.Variant)
+        getTextColor(data.Color, data.Variant) + " " +
+        getOpacityClasses(data.Variant, data.Opacity)
 }
 
 func addAttributes(attrs models.Attributes) templ.Attributes {
