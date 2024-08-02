@@ -31,10 +31,6 @@ func getTextColor(color string, variant string) string {
 }
 
 func getVariantClasses(variant string, hover bool) string {
-	if variant == "" {
-		variant = "soft"
-	}
-
 	variantClasses := map[string]string{
 		"plain":    "bg-opacity-0",
 		"outlined": "bg-opacity-0 border",
@@ -45,7 +41,7 @@ func getVariantClasses(variant string, hover bool) string {
 		variantClasses = map[string]string{
 			"plain":    "bg-opacity-0 hover:font-bold",
 			"outlined": "bg-opacity-0 border hover:bg-opacity-5",
-			"soft":     " hover:bg-opacity-10",
+			"soft":     "hover:bg-opacity-10",
 			"solid":    "bg-opacity-100 text-white hover:bg-opacity-90",
 		}
 	}
@@ -54,10 +50,6 @@ func getVariantClasses(variant string, hover bool) string {
 }
 
 func getColorClasses(color string) string {
-	if color == "" {
-		color = "grey"
-	}
-
 	colorClasses := map[string]string{
 		"yellow": "bg-[#FFD700] border-[#FFD700]",
 		"orange": "bg-[#FF6F00] border-[#FF6F00]",
@@ -91,12 +83,6 @@ func getOpacityClasses(variant string, opacity string) string {
 	}
 
 	if variant == "soft" {
-		opacity := opacity
-
-		if opacity == "" {
-			opacity = "5"
-		}
-
 		return opacityLevels[opacity]
 	}
 
