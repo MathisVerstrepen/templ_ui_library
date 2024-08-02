@@ -30,14 +30,14 @@ func getVariantClasses(variant string, hover bool) string {
 	variantClasses := map[string]string{
 		"plain":    "bg-opacity-0",
 		"outlined": "bg-opacity-0 border",
-		"soft":     "bg-opacity-5",
+		"soft":     "",
 		"solid":    "bg-opacity-100 text-white",
 	}
 	if hover {
 		variantClasses = map[string]string{
 			"plain":    "bg-opacity-0 hover:font-bold",
 			"outlined": "bg-opacity-0 border hover:bg-opacity-5",
-			"soft":     "bg-opacity-5 hover:bg-opacity-10",
+			"soft":     "hover:bg-opacity-10",
 			"solid":    "bg-opacity-100 text-white hover:bg-opacity-90",
 		}
 	}
@@ -61,21 +61,21 @@ func getColorClasses(color string) string {
 
 func getOpacityClasses(variant string, opacity string) string {
 	opacityLevels := map[string]string{
-		"0":   "opacity-0",
-		"5":   "opacity-5",
-		"10":  "opacity-10",
-		"20":  "opacity-20",
-		"25":  "opacity-25",
-		"30":  "opacity-30",
-		"40":  "opacity-40",
-		"50":  "opacity-50",
-		"60":  "opacity-60",
-		"70":  "opacity-70",
-		"75":  "opacity-75",
-		"80":  "opacity-80",
-		"90":  "opacity-90",
-		"95":  "opacity-95",
-		"100": "opacity-100",
+		"0":   "bg-opacity-0",
+		"5":   "bg-opacity-5",
+		"10":  "bg-opacity-10",
+		"20":  "bg-opacity-20",
+		"25":  "bg-opacity-25",
+		"30":  "bg-opacity-30",
+		"40":  "bg-opacity-40",
+		"50":  "bg-opacity-50",
+		"60":  "bg-opacity-60",
+		"70":  "bg-opacity-70",
+		"75":  "bg-opacity-75",
+		"80":  "bg-opacity-80",
+		"90":  "bg-opacity-90",
+		"95":  "bg-opacity-95",
+		"100": "bg-opacity-100",
 	}
 
 	if variant == "soft" {
