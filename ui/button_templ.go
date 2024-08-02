@@ -278,7 +278,7 @@ func getButtonClasses(data models.Button) string {
 		data.Color = "grey"
 	}
 	if data.Opacity == "" {
-		data.Opacity = "5"
+		data.Opacity = "10"
 	}
 
 	return baseClass + " " +
