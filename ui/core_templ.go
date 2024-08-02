@@ -37,7 +37,7 @@ func getVariantClasses(variant string, hover bool) string {
 		variantClasses = map[string]string{
 			"plain":    "bg-opacity-0 hover:font-bold",
 			"outlined": "bg-opacity-0 border hover:bg-opacity-5",
-			"soft":     "hover:bg-opacity-10",
+			"soft":     " hover:bg-opacity-10",
 			"solid":    "bg-opacity-100 text-white hover:bg-opacity-90",
 		}
 	}

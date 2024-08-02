@@ -24,12 +24,12 @@ templ chipWrapper(data models.Chip, button templ.Component) {
 
 
 func getChipClasses(data models.Chip) string {
-    baseClass := "flex items-center justify-center gap-2 w-fit rounded-full font-bold"
+    baseClass := "flex items-center justify-center gap-2 w-fit rounded-full font-semibold"
 
     sizeClasses := map[string]string{
-        "sm": "px-3 py-1 text-sm",
-        "md": "px-5 py-[6px]",
-        "lg": "px-10 py-[10px] text-lg",
+        "sm": "px-3 py-1 text-xs",
+        "md": "px-5 py-[6px] text-sm",
+        "lg": "px-8 py-[8px]",
     }
 
     return baseClass + " " + 
