@@ -2,6 +2,7 @@ package ui
 
 import (
     "github.com/MathisVerstrepen/templ_ui_library/models"
+	"fmt"
 )
 
 templ Button(data models.Button) {
@@ -26,7 +27,21 @@ templ decoratorWrapper(data models.Button) {
 }
 
 templ buttonWrapper(data models.Button, button templ.Component) {
-    if data.HTML["href"] != "" {
+    if data.Upload {
+        <input 
+            type="file" 
+            { addAttributes(data.HTML)... }
+            { addAttributes(data.HTMX)... }
+            hidden
+            id={ fmt.Sprintf("file-upload-%s", data.Text) }
+        >
+        <label 
+            for={ fmt.Sprintf("file-upload-%s", data.Text) }
+            class={ getButtonClasses(data) + " cursor-pointer" }
+        >
+            @button
+        </label>
+    } else if data.HTML["href"] != "" {
         <a
             class={ getButtonClasses(data) }
             { addAttributes(data.HTML)... }

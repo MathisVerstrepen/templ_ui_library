@@ -17,6 +17,7 @@ type Button struct {
 	Color             string
 	Size              string
 	Opacity           string
+	Upload            bool
 	Decorator         templ.Component
 	DecoratorPosition string
 	HTMX              Attributes
