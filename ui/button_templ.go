@@ -356,7 +356,7 @@ func getButtonClasses(data models.Button) string {
 	}
 
 	return baseClass + " " +
-		getVariantClasses(data.Variant, true) + " " +
+		getVariantClasses(data.Variant, true, data.Opacity) + " " +
 		sizeClasses[data.Size] + " " +
 		getColorClasses(data.Color) + " " +
 		getTextColor(data.Color, data.Variant) + " " +

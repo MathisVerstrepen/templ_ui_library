@@ -45,7 +45,7 @@ func getChipClasses(data models.Chip) string {
     }
 
     return baseClass + " " + 
-        getVariantClasses(data.Variant, false) + " " + 
+        getVariantClasses(data.Variant, false, data.Opacity) + " " + 
         sizeClasses[data.Size] + " " + 
         getColorClasses(data.Color) + " " + 
         getTextColor(data.Color, data.Variant) + " " +

@@ -8,6 +8,42 @@ package ui
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
+var opacityLevels = map[string]string{
+	"0":   "bg-opacity-0",
+	"5":   "bg-opacity-5",
+	"10":  "bg-opacity-10",
+	"20":  "bg-opacity-20",
+	"25":  "bg-opacity-25",
+	"30":  "bg-opacity-30",
+	"40":  "bg-opacity-40",
+	"50":  "bg-opacity-50",
+	"60":  "bg-opacity-60",
+	"70":  "bg-opacity-70",
+	"75":  "bg-opacity-75",
+	"80":  "bg-opacity-80",
+	"90":  "bg-opacity-90",
+	"95":  "bg-opacity-95",
+	"100": "bg-opacity-100",
+}
+
+var hoverOpacityLevels = map[string]string{
+	"0":   "hover:bg-opacity-5",
+	"5":   "hover:bg-opacity-10",
+	"10":  "hover:bg-opacity-20",
+	"20":  "hover:bg-opacity-30",
+	"25":  "hover:bg-opacity-35",
+	"30":  "hover:bg-opacity-40",
+	"40":  "hover:bg-opacity-50",
+	"50":  "hover:bg-opacity-60",
+	"60":  "hover:bg-opacity-70",
+	"70":  "hover:bg-opacity-80",
+	"75":  "hover:bg-opacity-85",
+	"80":  "hover:bg-opacity-90",
+	"90":  "hover:bg-opacity-95",
+	"95":  "hover:bg-opacity-100",
+	"100": "hover:bg-opacity-100",
+}
+
 func getTextColor(color string, variant string) string {
 	if color == "" {
 		return "grey"
@@ -30,7 +66,7 @@ func getTextColor(color string, variant string) string {
 	return textColors[color]
 }
 
-func getVariantClasses(variant string, hover bool) string {
+func getVariantClasses(variant string, hover bool, opacityLevel string) string {
 	variantClasses := map[string]string{
 		"plain":    "bg-opacity-0",
 		"outlined": "bg-opacity-0 border",
@@ -39,10 +75,10 @@ func getVariantClasses(variant string, hover bool) string {
 	}
 	if hover {
 		variantClasses = map[string]string{
-			"plain":    "bg-opacity-0 hover:font-bold",
-			"outlined": "bg-opacity-0 border hover:bg-opacity-5",
-			"soft":     "hover:bg-opacity-10",
-			"solid":    "bg-opacity-100 text-white hover:bg-opacity-90",
+			"plain":    "bg-opacity-0 hover:font-bold duration-200",
+			"outlined": "bg-opacity-0 border hover:bg-opacity-5 duration-200",
+			"soft":     hoverOpacityLevels[opacityLevel] + " duration-200",
+			"solid":    "bg-opacity-100 text-white hover:bg-opacity-90 duration-200",
 		}
 	}
 
@@ -64,24 +100,6 @@ func getColorClasses(color string) string {
 }
 
 func getOpacityClasses(variant string, opacity string) string {
-	opacityLevels := map[string]string{
-		"0":   "bg-opacity-0",
-		"5":   "bg-opacity-5",
-		"10":  "bg-opacity-10",
-		"20":  "bg-opacity-20",
-		"25":  "bg-opacity-25",
-		"30":  "bg-opacity-30",
-		"40":  "bg-opacity-40",
-		"50":  "bg-opacity-50",
-		"60":  "bg-opacity-60",
-		"70":  "bg-opacity-70",
-		"75":  "bg-opacity-75",
-		"80":  "bg-opacity-80",
-		"90":  "bg-opacity-90",
-		"95":  "bg-opacity-95",
-		"100": "bg-opacity-100",
-	}
-
 	if variant == "soft" {
 		return opacityLevels[opacity]
 	}
