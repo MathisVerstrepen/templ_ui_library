@@ -1,8 +1,8 @@
 package ui
 
 import (
+    "fmt"
     "github.com/MathisVerstrepen/templ_ui_library/models"
-	"fmt"
 )
 
 templ Button(data models.Button) {
@@ -28,19 +28,25 @@ templ decoratorWrapper(data models.Button) {
 
 templ buttonWrapper(data models.Button, button templ.Component) {
     if data.Upload {
-        <input 
-            type="file" 
-            { addAttributes(data.HTML)... }
-            { addAttributes(data.HTMX)... }
-            hidden
-            id={ fmt.Sprintf("file-upload-%s", data.Text) }
-        >
-        <label 
-            for={ fmt.Sprintf("file-upload-%s", data.Text) }
+        <label
+			htmlFor={ fmt.Sprintf("file-upload-%s", data.Text) }
             class={ getButtonClasses(data) + " cursor-pointer" }
-        >
-            @button
-        </label>
+		>
+            // ! Need hx-post, accept and other attributes
+			<input
+				class="hidden"
+				type="file"
+				name="file"
+				id={ fmt.Sprintf("file-upload-%s", data.Text) }
+				aria-describedby="selected-file"
+				hx-on="change"
+				hx-encoding="multipart/form-data"
+                { addAttributes(data.HTML)... }
+                { addAttributes(data.HTMX)... }
+			/>
+			@button
+		</label>
+
     } else if data.HTML["href"] != "" {
         <a
             class={ getButtonClasses(data) }
